@@ -1,7 +1,7 @@
 package by.mazets.textparser.composite;
 import java.util.List;
 
-public class Leaf implements Component {
+public class TextLeaf implements TextComponent {
     public enum Type {
         PUNCTUATION, CHARACTER
     }
@@ -9,33 +9,33 @@ public class Leaf implements Component {
     private String content;
     private Type type;
 
-    public Leaf(String symbol, Type type) {
+    public TextLeaf(String symbol, Type type) {
         this.content = symbol;
         this.type = type;
     }
 
     @Override
-    public ComponentType getType() {
-        return ComponentType.SYMBOL;
+    public TextComponentType getType() {
+        return TextComponentType.SYMBOL;
     }
 
     @Override
-    public void add(Component component) {
+    public void add(TextComponent textComponent) {
         throw new UnsupportedOperationException("Method is not supported");
     }
 
     @Override
-    public void remove(Component component) {
+    public void remove(TextComponent textComponent) {
         throw new UnsupportedOperationException("Method is not supported");
     }
 
     @Override
-    public List<Component> getComponents() {
+    public List<TextComponent> getComponents() {
         throw new UnsupportedOperationException("Method is not supported");
     }
 
     @Override
-    public Component getComponent(int index) {
+    public TextComponent getComponent(int index) {
         throw new UnsupportedOperationException("Method is not supported");
     }
 
@@ -55,12 +55,12 @@ public class Leaf implements Component {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Leaf symbolLeaf1 = (Leaf) o;
+        TextLeaf symbolTextLeaf1 = (TextLeaf) o;
 
-        if (content.equals(symbolLeaf1.content)) {
+        if (content.equals(symbolTextLeaf1.content)) {
             return false;
         }
-        return type == symbolLeaf1.type;
+        return type == symbolTextLeaf1.type;
     }
 
     @Override

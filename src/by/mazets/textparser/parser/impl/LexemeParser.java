@@ -1,9 +1,9 @@
 package by.mazets.textparser.parser.impl;
 
-import by.mazets.textparser.composite.Component;
-import by.mazets.textparser.composite.ComponentType;
-import by.mazets.textparser.composite.Composite;
-import by.mazets.textparser.composite.Leaf;
+import by.mazets.textparser.composite.TextComponent;
+import by.mazets.textparser.composite.TextComponentType;
+import by.mazets.textparser.composite.TextComposite;
+import by.mazets.textparser.composite.TextLeaf;
 import by.mazets.textparser.parser.BaseParser;
 
 import java.util.regex.Pattern;
@@ -21,18 +21,18 @@ public class LexemeParser extends BaseParser {
     }
 
     @Override
-    public Component parse(String text) {
-        Component lexemeComposite = new Composite(ComponentType.LEXEME);
-        Leaf symbolLeaf;
+    public TextComponent parse(String text) {
+        TextComponent lexemeComposite = new TextComposite(TextComponentType.LEXEME);
+        TextLeaf symbolTextLeaf;
 
         String[] symbols = text.split(LETTER_REGEX);
         for (String element : symbols) {
             if (Pattern.matches(PUNCTUATION_REGEX, element)) {
-                symbolLeaf = new Leaf(element, Leaf.Type.PUNCTUATION);
+                symbolTextLeaf = new TextLeaf(element, TextLeaf.Type.PUNCTUATION);
             } else {
-                symbolLeaf = new Leaf(element, Leaf.Type.CHARACTER);
+                symbolTextLeaf = new TextLeaf(element, TextLeaf.Type.CHARACTER);
             }
-            lexemeComposite.add(symbolLeaf);
+            lexemeComposite.add(symbolTextLeaf);
         }
 
         return lexemeComposite;

@@ -1,8 +1,8 @@
 package by.mazets.textparser.parser.impl;
 
-import by.mazets.textparser.composite.Component;
-import by.mazets.textparser.composite.ComponentType;
-import by.mazets.textparser.composite.Composite;
+import by.mazets.textparser.composite.TextComponent;
+import by.mazets.textparser.composite.TextComponentType;
+import by.mazets.textparser.composite.TextComposite;
 import by.mazets.textparser.parser.BaseParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,12 +23,12 @@ public class TextParser extends BaseParser {
     }
 
     @Override
-    public Component parse(String text) {
+    public TextComponent parse(String text) {
         logger.info("Start parse text : \n {}", text);
         setNext(ParagraphParser.getInstance());
 
-        Component paragraphComposite;
-        Component textComposite = new Composite(ComponentType.TEXT);
+        TextComponent paragraphComposite;
+        TextComponent textComposite = new TextComposite(TextComponentType.TEXT);
         String[] paragraphs = text.split(NEW_LINE_REGEX);
         for (String element : paragraphs) {
             element = element.replace(TABULATION_REGEX, "");

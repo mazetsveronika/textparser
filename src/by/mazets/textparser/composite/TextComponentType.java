@@ -1,6 +1,6 @@
 package by.mazets.textparser.composite;
 
-public enum ComponentType {
+public enum TextComponentType {
         TEXT,
         PARAGRAPH,
         SENTENCE,

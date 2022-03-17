@@ -1,8 +1,8 @@
 package by.mazets.textparser.parser.impl;
 
-import by.mazets.textparser.composite.Component;
-import by.mazets.textparser.composite.ComponentType;
-import by.mazets.textparser.composite.Composite;
+import by.mazets.textparser.composite.TextComponent;
+import by.mazets.textparser.composite.TextComponentType;
+import by.mazets.textparser.composite.TextComposite;
 import by.mazets.textparser.parser.BaseParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,12 +27,12 @@ public class ParagraphParser extends BaseParser {
     }
 
     @Override
-    public Component parse(String text) {
+    public TextComponent parse(String text) {
         logger.info("Start parse paragraphs : \n {}", text);
         setNext(SentenceParser.getInstance());
 
-        Component paragraphComposite = new Composite(ComponentType.PARAGRAPH);
-        Component sentenceComposite;
+        TextComponent paragraphComposite = new TextComposite(TextComponentType.PARAGRAPH);
+        TextComponent sentenceComposite;
         Matcher matcher = Pattern.compile(SENTENCE_REGEX).matcher(text);
         List<String> sentences = new ArrayList<>();
         while (matcher.find()) {

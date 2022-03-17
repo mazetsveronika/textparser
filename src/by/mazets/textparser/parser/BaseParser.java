@@ -1,6 +1,6 @@
 package by.mazets.textparser.parser;
 
-import by.mazets.textparser.composite.Component;
+import by.mazets.textparser.composite.TextComponent;
 
 public abstract class BaseParser {
     private BaseParser next;
@@ -9,9 +9,9 @@ public abstract class BaseParser {
         this.next = next;
     }
 
-    public abstract Component parse(String text);
+    public abstract TextComponent parse(String text);
 
-    protected Component parseNext(String text) {
+    protected TextComponent parseNext(String text) {
         return next.parse(text);
     }
 }

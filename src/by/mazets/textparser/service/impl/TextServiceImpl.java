@@ -1,7 +1,7 @@
 package by.mazets.textparser.service.impl;
 
 import by.mazets.textparser.comporator.QuantitySentencesComparator;
-import by.mazets.textparser.composite.Component;
+import by.mazets.textparser.composite.TextComponent;
 import by.mazets.textparser.service.TextService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,22 +25,22 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public Component sortParagraphsByQuantitySentences(Component textComposite) {
+    public TextComponent sortParagraphsByQuantitySentences(TextComponent textComposite) {
         logger.info("Start to sort paragraphs by quantity of sentences : \n {}", textComposite);
-        List<Component> paragraphs = textComposite.getComponents();
+        List<TextComponent> paragraphs = textComposite.getComponents();
         paragraphs.sort(new QuantitySentencesComparator());
         logger.info("Sorted paragraphs by quantity of sentences : \n {}", textComposite);
         return textComposite;
     }
 
     @Override
-    public Component findSentenceContainsLongestWord(Component textComposite) {
+    public TextComponent findSentenceContainsLongestWord(TextComponent textComposite) {
         logger.info("Start to find sentence contain longest word : \n {}", textComposite);
-        Component resultSentence = null;
+        TextComponent resultSentence = null;
         String longestWord = "";
-        for (Component paragraphs : textComposite.getComponents()) {
-            for (Component sentence : paragraphs.getComponents()) {
-                for (Component lexeme : sentence.getComponents()) {
+        for (TextComponent paragraphs : textComposite.getComponents()) {
+            for (TextComponent sentence : paragraphs.getComponents()) {
+                for (TextComponent lexeme : sentence.getComponents()) {
                     String lexemeWord = lexeme.toString();
                     String lexemeWordPunctuationReplaced =
                             lexemeWord.replaceAll(PUNCTUATION_REPLACE_REGEX, "");
@@ -56,12 +56,12 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public Component removeSentencesContainWordsLessNumber(Component textComposite, int number) {
+    public TextComponent removeSentencesContainWordsLessNumber(TextComponent textComposite, int number) {
         logger.info("Start to remove sentence, which contain words less number : {} : \n {}",
                 number,
                 textComposite);
-        for (Component paragraph : textComposite.getComponents()) {
-            List<Component> sentences = paragraph.getComponents();
+        for (TextComponent paragraph : textComposite.getComponents()) {
+            List<TextComponent> sentences = paragraph.getComponents();
             for (int i = 0; i < paragraph.getComponents().size(); i++) {
                 if (sentences.get(i).getComponents().size() < number) {
                     paragraph.remove(sentences.get(i));
@@ -74,22 +74,22 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public Map<String, Integer> findQuantitySameWordsWithoutRegister(Component textComposite) {
+    public Map<String, Integer> findQuantitySameWordsWithoutRegister(TextComponent textComposite) {
         logger.info("Start to find quantity same words without register : \n {}", textComposite);
         Map<String, Integer> result = new HashMap<>();
         int quantity;
 
-        for (Component paragraph : textComposite.getComponents()) {
-            for (Component sentence : paragraph.getComponents()) {
-                for (Component lexeme : sentence.getComponents()) {
+        for (TextComponent paragraph : textComposite.getComponents()) {
+            for (TextComponent sentence : paragraph.getComponents()) {
+                for (TextComponent lexeme : sentence.getComponents()) {
                     String lexemeWord = lexeme.toString();
                     String lexemeWordPunctuationReplaced =
                             lexemeWord.replaceAll(PUNCTUATION_REPLACE_REGEX, "");
                     quantity = 0;
                     if (!result.containsKey(lexemeWordPunctuationReplaced)) {
-                        for (Component paragraphN : textComposite.getComponents()) {
-                            for (Component sentenceN : paragraphN.getComponents()) {
-                                for (Component lexemeN : sentenceN.getComponents()) {
+                        for (TextComponent paragraphN : textComposite.getComponents()) {
+                            for (TextComponent sentenceN : paragraphN.getComponents()) {
+                                for (TextComponent lexemeN : sentenceN.getComponents()) {
                                     String lexemeWordN = lexemeN.toString();
                                     String lexemeWordPunctuationReplacedN =
                                             lexemeWordN.replaceAll(PUNCTUATION_REPLACE_REGEX, "");

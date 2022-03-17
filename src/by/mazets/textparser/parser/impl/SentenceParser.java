@@ -1,8 +1,8 @@
 package by.mazets.textparser.parser.impl;
 
-import by.mazets.textparser.composite.Component;
-import by.mazets.textparser.composite.ComponentType;
-import by.mazets.textparser.composite.Composite;
+import by.mazets.textparser.composite.TextComponent;
+import by.mazets.textparser.composite.TextComponentType;
+import by.mazets.textparser.composite.TextComposite;
 import by.mazets.textparser.interpreter.TextInterpreter;
 import by.mazets.textparser.parser.BaseParser;
 import org.apache.logging.log4j.LogManager;
@@ -27,12 +27,12 @@ public class SentenceParser extends BaseParser {
     }
 
     @Override
-    public Component parse(String text) {
+    public TextComponent parse(String text) {
         logger.info("Start parse sentence : \n {}", text);
         setNext(LexemeParser.getInstance());
 
-        Component sentenceComposite = new Composite(ComponentType.SENTENCE);
-        Component lexemeComposite;
+        TextComponent sentenceComposite = new TextComposite(TextComponentType.SENTENCE);
+        TextComponent lexemeComposite;
         String[] lexemes = text.split(LEXEME_REGEX);
 
         Pattern pattern = Pattern.compile(CONDITION_CALCULATION_REGEX);
